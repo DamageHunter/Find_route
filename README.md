@@ -28,7 +28,7 @@ git clone https://github.com/DamageHunter/Find_route
 Перейдите в каталог проекта:
 
 ```
-cd Find_toute
+cd Find_route
 ```
 
 Создайте файл окружений
