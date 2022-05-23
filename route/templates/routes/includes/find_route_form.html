@@ -1,0 +1,46 @@
+<style>
+    .select2-selection__rendered, ::placeholder {
+        color: #ababab !important;
+    }
+
+    .select2-selection__choice {
+        color: black !important;
+    }
+
+    .change_choice_color {
+        color: black !important;
+    }
+
+    input {
+        padding: 3px !important;
+        border: 1px solid rgb(170, 170, 170) !important;
+    }
+
+    input:hover, input:active, .select2-selection:hover, input:focus {
+        border: 1px solid black !important;
+        outline: none !important;
+    }
+</style>
+
+{{ form.as_p }}
+
+
+<script>
+    $(document).ready(function () {
+        $('.js-example-basic-single').select2();
+        $('.js-example-basic-multiple').select2({
+            placeholder: {
+                id: '-1', // the value of the option
+                text: 'Выберите города, если необходимо',
+            }
+        });
+    });
+    $('.js-example-basic-single').on('select2:select', function (e) {
+        let id = e.target.id
+        if (e.params.data.id !== '') {
+            $('#select2-' + id + '-container').addClass('change_choice_color')
+        } else {
+            $('#select2-' + id + '-container').removeClass('change_choice_color')
+        }
+    });
+</script>

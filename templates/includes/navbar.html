@@ -1,0 +1,60 @@
+{% url 'cities:cities-list' as cities_list_url %}
+{% url 'cities:create-city' as cities_create_url %}
+{% url 'trains:trains-list' as trains_list_url %}
+{% url 'trains:create-train' as trains_create_url %}
+{% url 'route:routes_list' as routes_list_url %}
+<div class="row">
+    <div class="col-md-11 mx-auto">
+        <nav class="navbar rounded-bottom navbar-expand-lg navbar-dark bg-dark container">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="{% url 'route:home' %}">FindRoute</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNavDropdown"
+                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == cities_list_url %}active{% endif %}"
+                               aria-current="page" href="{{ cities_list_url }}">Города</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == trains_list_url %}active{% endif %}"
+                               href="{{ trains_list_url }}">Поезда</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == routes_list_url %}active{% endif %}"
+                               href="{{ routes_list_url }}">Маршруты</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    Добавить
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{% url 'cities:create-city' %}">Добавить
+                                        город</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{% url 'trains:create-train' %}">Добавить
+                                        поезд</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{% url 'users:user_logout' %}">Выйти</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="{% url 'users:user_login' %}">Войти</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>

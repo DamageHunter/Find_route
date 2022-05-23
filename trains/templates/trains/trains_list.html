@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Список поездов{% endblock %}
+
+{% block content %}
+    <div class="row my-2">
+        <h1>Список поездов</h1>
+        <div class="row">
+            <div class="col-8 mx-auto my-2 ">
+                <table class="table table-striped align-middle">
+                    <thead>
+                    <tr class="text-center">
+                        <th scope="col">Номер поезда</th>
+                        <th scope="col">Время в пути</th>
+                        <th scope="col">Откуда</th>
+                        <th scope="col">Куда</th>
+                        <th scope="col">&nbsp;</th>
+                        <th scope="col">&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for train in object_list %}
+                        <tr>
+                            <td class="text-center">
+                                <a href="{{ train.get_absolute_url }}">{{ train.name }}</a>
+                            </td>
+                            <td class="text-center">{{ train.travel_time }}</td>
+                            <td class="text-center">{{ train.from_city }}</td>
+                            <td class="text-center">{{ train.to_city }}</td>
+                            {% if user.is_authenticated %}
+                                 <td class="text-end col-md-1">
+                                <a href="{% url 'trains:update-train' pk=train.id %}">
+                                    <button type="submit" value="save" class="btn btn-primary">Редактировать</button>
+                                </a>
+                            </td>
+                            <td class="text-end col-md-1">
+                                <a href="{% url 'trains:delete-train' train.id %}">
+                                    <button type="submit" value="save" class="btn btn-danger">Удалить</button>
+                                </a>
+                            </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% include 'cities/includes/pagination.html' %}
+{% endblock %}

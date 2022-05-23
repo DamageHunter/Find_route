@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block content%}
+    <h1>{{ object.name }}</h1>
+    <a href="{% url 'cities:cities-list'%}">
+        <button type="button" class="btn btn-dark">Назад к списку</button>
+    </a>
+{% endblock %}

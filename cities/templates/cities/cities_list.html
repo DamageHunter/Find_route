@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Список городов{% endblock %}
+
+{% block content %}
+    <div class="row my-2">
+        <h1>Список городов</h1>
+        <div class="row">
+            <div class="col-md-8 mx-auto my-2">
+                <table class="table table-striped align-middle">
+                    {% for city in object_list %}
+                        <tr>
+                            <td class="align-middle">
+                                <a href="{{ city.get_absolute_url }}">{{ city }}</a>
+                            </td>
+                            {% if user.is_authenticated %}
+                                <td class="text-center col-md-2">
+                                    <a href="{% url 'cities:update-city' pk=city.id %}">
+                                        <button type="submit" value="save" class="btn btn-primary">Редактировать
+                                        </button>
+                                    </a>
+                                </td>
+                                <td class="text-center col-md-2">
+                                    <a href="{% url 'cities:delete-city' pk=city.id %}">
+                                        <button type="submit" value="delete" class="btn btn-danger">Удалить</button>
+                                    </a>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    {% include 'cities/includes/pagination.html' %}
+{% endblock %}

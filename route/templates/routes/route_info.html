@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block content %}
+    <h1>Список маршрутов</h1>
+    <div class="row">
+        <div class="col-md-10 mx-auto my-2">
+            <table class="table table-striped">
+                <thead>
+                <tr class="text-center">
+                    <th class="text-center" scope="col">Название</th>
+                    <th scope="col">Откуда</th>
+                    <th scope="col">Куда</th>
+                    <th scope="col">Время в пути</th>
+                    <th scope="col">Список поездов по маршруту</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-center">
+                        {{ object.name }}
+                    </td>
+                    <td class="text-center">{{ object.from_city }}</td>
+                    <td class="text-center">{{ object.to_city }}</td>
+                    <td class="text-center">{{ object.travel_time }}</td>
+                    <td class="text-center">
+                        {% for train in object.trains.all %}
+                            <p>{{ train }}, время в пути {{ train.travel_time }}</p>
+                        {% endfor %}</td>
+                </tr>
+                </tbody>
+            </table>
+            <a href="{% url 'route:routes_list' %}">
+                <button type="button" class="btn btn-dark">Назад к списку</button>
+            </a>
+        </div>
+{% endblock %}

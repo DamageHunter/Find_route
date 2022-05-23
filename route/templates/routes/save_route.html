@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h1>Сохранение маршрута</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <form method="post" action="{{ action }}">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-secondary" type="submit" value="save">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{#{% block scripts %}#}
+{#    <script>$(".errorlist").hide()</script>#}
+{#{% endblock %}#}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+    <h1 class="m-3">Поиск маршрута</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <form method="post">
+                    {% csrf_token %}
+                    {% include 'routes/includes/find_route_form.html' %}
+                    <button type="submit" class="btn btn-dark">Поиск</button>
+                </form>
+            </div>
+            <div class="col-sm-9">
+                {% if routes %}
+                    <div class="col-md-8 mx-auto">
+                        <h3 class="mb-4">Маршруты из города {{ routes.from_city.name }} в
+                            город {{ routes.to_city.name }}</h3>
+                        {% for route in routes.trains %}
+                            <form action="{% url "route:save_route" %}" method="get"> {% csrf_token %}
+                                <input type="hidden" name="from_city" value="{{ routes.from_city.id }}">
+                                <input type="hidden" name="to_city" value="{{ routes.to_city.id }}">
+                                <input type="hidden" name="travel_time" value="{{ route.total_time }}">
+                                <input type="hidden" name="trains"
+                                       value="{% for trains in route.trains %}{{ trains.id }},{% endfor %}">
+                                {% if forloop.first %} <h5>Самый быстрый маршрут</h5> {% endif %}
+                                <h6>Время в пути {{ route.total_time }}</h6>
+                                <div class="mb-5">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Список поездов по этому маршруту</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for train in route.trains %}
+                                            <tr>
+                                                <th scope="row">{{ forloop.counter }}</th>
+                                                <td>Поезд из г.{{ train.from_city }} в г.{{ train.to_city }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <button class="btn btn-secondary" type="submit">Сохранить</button>
+                                </div>
+                            </form>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

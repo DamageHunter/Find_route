@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Список поездов{% endblock %}
+
+{% block content %}
+    <div class="row my-2">
+        <h1>Список маршрутов</h1>
+        <div class="row">
+            <div class="col-8 mx-auto my-2 ">
+                <table class="table table-striped align-middle">
+                    <thead>
+                    <tr class="text-center">
+                        <th scope="col">Название</th>
+                        <th scope="col">Откуда</th>
+                        <th scope="col">Куда</th>
+                        <th scope="col">Время в пути</th>
+                        <th scope="col">&nbsp;</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for route in object_list %}
+                        <tr>
+                            <td class="text-center">
+                                <a href="{{ route.get_absolute_url }}">{{ route.name }}</a>
+                            </td>
+                            <td class="text-center">{{ route.from_city }}</td>
+                            <td class="text-center">{{ route.to_city }}</td>
+                            <td class="text-center">{{ route.travel_time }}</td>
+                            {% if user.is_superuser %}
+                                <td class="text-end col-md-1">
+                                <a href="{% url 'route:route_delete' pk=route.id %}">
+                                    <button type="submit" class="btn btn-danger">Удалить</button>
+                                </a>
+                            {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% include 'cities/includes/pagination.html' %}
+{% endblock %}

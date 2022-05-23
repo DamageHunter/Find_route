@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ object.name }}</h1>
+    <div class="row">
+        <div class="col-md-8 mx-auto my-2">
+            <table class="table table-striped">
+                <thead>
+                <tr class="text-center">
+                    <th class="text-start" scope="col">№ Номер поезда</th>
+                    <th scope="col">Время в пути</th>
+                    <th scope="col">Откуда</th>
+                    <th scope="col">Куда</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <a href="{{ train.get_absolute_url }}"> {{ train.name }} </a>
+                    </td>
+                    <td class="text-center">{{ train.travel_time }}</td>
+                    <td class="text-center">{{ train.from_city }}</td>
+                    <td class="text-center">{{ train.to_city }}</td>
+                </tr>
+                </tbody>
+            </table>
+            <a href="{% url 'trains:trains-list' %}">
+                <button type="button" class="btn btn-dark">Назад к списку</button>
+            </a>
+        </div>
+{% endblock %}
