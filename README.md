@@ -7,7 +7,7 @@ Cайт Find Route, «Помощник в поиске пути». На этом
 находить маршруты без возможности сохранения
 
 Ознакомиться с уже развёрнутым проектом можно по адресу: <br/> 
-[pkhludyw.beget.tech](http://pkhludyw.beget.tech).
+[http://khlud.pythonanywhere.com](http://khlud.pythonanywhere.com).
 
 Тестовый пользователь:
 - login: test
